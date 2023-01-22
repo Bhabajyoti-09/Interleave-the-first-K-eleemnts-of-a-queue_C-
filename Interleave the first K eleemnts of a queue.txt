@@ -1,0 +1,41 @@
+#include <stack>
+#include <queue>
+
+void interLeaveQueue(queue < int > & q) {
+
+    // Initialize an empty stack of int type.
+    stack < int > s;
+    int halfSize = q.size() / 2;
+
+    // Push first half elements into the stack.
+    for (int i = 0; i < halfSize; i++) {
+        s.push(q.front());
+        q.pop();
+    }
+
+    // Enqueue back the stack elements.
+    while (!s.empty()) {
+        q.push(s.top());
+        s.pop();
+    }
+
+    // Dequeue the first half elements of queue and enqueue them back.
+    for (int i = 0; i < halfSize; i++) {
+        q.push(q.front());
+        q.pop();
+    }
+
+    // Again push the first half elements into the stack.
+    for (int i = 0; i < halfSize; i++) {
+        s.push(q.front());
+        q.pop();
+    }
+
+    // Interleave the elements of queue and stack.
+    while (!s.empty()) {
+        q.push(s.top());
+        s.pop();
+        q.push(q.front());
+        q.pop();
+    }
+}
